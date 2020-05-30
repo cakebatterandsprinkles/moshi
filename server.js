@@ -1,22 +1,39 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config();
-const path = require('path');
-
-const DATABASE_URL = process.env.DATABASE_URL;
-mongoose.connect(DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
+const express = require("express");
 const app = express();
-app.set('view engine', 'ejs');
+const mongoose = require("mongoose");
+require("dotenv").config();
+const path = require("path");
 
-app.use(express.static(path.join(__dirname, 'public')));
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_USERNAME = process.env.MONGODB_USERNAME;
+const MONGODB_PASS = process.env.MONGODB_PASS;
 
-app.use('/', (req, res, next) => {
-  res.render('index');
+// connect db
+mongoose.connect(
+  MONGODB_URI,
+  {
+    auth: {
+      user: MONGODB_USERNAME,
+      password: MONGODB_PASS,
+    },
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  function (error) {
+    console.log(error);
+  }
+);
+
+app.set("view engine", "ejs");
+app.set("views", "views");
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/", (req, res, next) => {
+  res.render("index");
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Backend server initialized at port: ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Backend server initialized at port: ${PORT}`)
+);
