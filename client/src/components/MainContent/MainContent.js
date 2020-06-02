@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./MainContent.scss";
 
 class MainContent extends Component {
   constructor(props) {
@@ -63,12 +64,42 @@ class MainContent extends Component {
 
   render() {
     return (
-      <div>
-        <button ref={this.startButton} onClick={this.startListening}>
-          Click here to start
-        </button>
-        <h1> You are saying:</h1>
-        <p ref={this.userSpeech}></p>
+      <div className="mainContainer">
+        <div className="textWrapper">
+          <h1 className="heading">Welcome to Moshi!</h1>
+          <h2 className="subheading">
+            Learn more about tomatoes when you are preparing your salad!
+          </h2>
+          <p className="text text--md">
+            {" "}
+            Moshi uses the Web Speech API, SpeechSynthesis (Text-to-Speech), and
+            SpeechRecognition (Asynchronous Speech Recognition.) When your hands
+            are occupied with something else, you can press the Start button,
+            say something you would want to learn more about, and Mochi will
+            bring and read that article to you.
+          </p>
+          <p className="text text--md">
+            {" "}
+            It can be used without signing up. If you sign up, you can keep your
+            historical data and re-listen the wikipedia articles you want to
+            hear again with a single click.
+          </p>
+        </div>
+        <div className="demoWrapper">
+          <p className="text text--md">
+            After you are ready to start, click the start button and say
+            something that you would like to learn more about:
+          </p>
+          <button
+            ref={this.startButton}
+            onClick={this.startListening}
+            className="btn"
+          >
+            Start
+          </button>
+          <p className="text"> You are saying:</p>
+          <p ref={this.userSpeech} className="text highlight"></p>
+        </div>
       </div>
     );
   }

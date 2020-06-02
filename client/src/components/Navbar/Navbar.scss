@@ -87,51 +87,47 @@ p {
   right: 1rem;
 }
 
-.modal__content {
-  padding: 3rem 3rem;
-}
-
-.modal__subText {
-  font-size: 0.8rem;
-  display: inline;
-}
-
-.modal__subLink {
-  font-size: 0.8rem;
-  text-decoration: none;
-  color: var(--teal);
-  margin-left: 0.3rem;
-}
-
-.modal__content__heading {
-  font-size: 2rem;
-  margin-bottom: 0;
+.modal {
+  &__content {
+    padding: 3rem 3rem;
+    &__heading {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+  }
+  &__subText {
+    font-size: 0.8rem;
+    display: inline;
+  }
+  &__subLink {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--teal);
+    margin-left: 0.3rem;
+  }
 }
 
 .form {
   margin-top: 2rem;
-}
-
-.formGroupContainer {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.3rem;
-  margin-right: 1rem;
-}
-
-.formGroupContainer input {
-  padding: 0.5rem;
-  font-size: 0.8rem;
-  width: 100%;
-  border: 1px solid gray;
-  border-radius: 10px;
-}
-
-.formGroupContainer label {
-  margin-bottom: 0.3rem;
-  font-size: 0.9rem;
-  width: 35%;
-  padding-top: 0.5rem;
+  .formGroupContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.3rem;
+    margin-right: 1rem;
+    input {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      width: 100%;
+      border: 1px solid gray;
+      border-radius: 10px;
+    }
+    label {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      width: 35%;
+      padding-top: 0.5rem;
+    }
+  }
 }
 
 .btn {
