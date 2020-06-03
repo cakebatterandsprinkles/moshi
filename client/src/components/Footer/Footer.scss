@@ -1,0 +1,14 @@
+.footerContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  background: white;
+  p {
+    font-size: 0.8rem;
+  }
+}

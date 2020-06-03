@@ -1,3 +1,5 @@
+@import "src/assets/partials/variables";
+
 .mainContainer {
   width: 100%;
   min-height: 100vh;
@@ -5,4 +7,64 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: url("../../assets/images/path.svg") no-repeat center center fixed;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+
+  .innerContainer {
+    max-width: 40%;
+  }
+
+  .heading {
+    margin-bottom: 0;
+    font-size: 2rem;
+  }
+
+  .subheading {
+    color: $darkgray;
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+  }
+
+  .text--sm {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .demoWrapper {
+    padding: 1rem 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    .startBtn {
+      width: 10rem;
+      background: $mint;
+      color: $black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      border: 1px solid $darkgray;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+
+      &:focus,
+      &:hover {
+        outline: none;
+        background: $lightgray;
+        transition-duration: 1s;
+        box-shadow: $shad;
+      }
+    }
+  }
+}
+
+.textLogo {
+  font-family: "Bellota", "sans-serif";
+  font-weight: bold;
 }

@@ -3,7 +3,8 @@ html {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }
+  background-size: cover;
+  font-family: "Open Sans", sans-serif; }
 
 body {
   min-height: 100vh; }

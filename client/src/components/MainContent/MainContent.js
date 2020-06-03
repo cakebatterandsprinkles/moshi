@@ -11,14 +11,32 @@ class MainContent extends Component {
     this.handleUserInput = this.handleUserInput.bind(this);
     this.readText = this.readText.bind(this);
     this.searchWikiArticle = this.searchWikiArticle.bind(this);
+
+    this.state = {
+      buttonText: "Start",
+    };
   }
 
   startListening = () => {
+    let buttonText = this.userSpeech.current.textContent;
     window.SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition = new window.SpeechRecognition();
     recognition.addEventListener("result", this.handleUserInput);
-    recognition.start();
+    if (buttonText === "Stop") {
+      recognition.abort();
+    } else if (buttonText === "Start") {
+      recognition.start();
+    }
+    this.generateButtonText();
+  };
+
+  generateButtonText = () => {
+    if (this.state.buttonText === "Start") {
+      this.setState({ buttonText: "Stop" });
+    } else {
+      this.setState({ buttonText: "Start" });
+    }
   };
 
   handleUserInput = (event) => {
@@ -29,20 +47,23 @@ class MainContent extends Component {
   };
 
   readText = (text) => {
-    console.log(text);
+    const buttonText = this.userSpeech.current.textContent;
     const synth = window.speechSynthesis;
-    synth.cancel();
-    const utterThis = new SpeechSynthesisUtterance(text);
+    if (buttonText === "Stop") {
+      synth.cancel();
+    } else if (buttonText === "Start") {
+      const utterThis = new SpeechSynthesisUtterance(text);
 
-    const voices = synth.getVoices();
+      const voices = synth.getVoices();
 
-    const googleUSVoice = voices.filter(
-      (voice) => voice.name === "Google UK English Female"
-    )[0];
-    if (googleUSVoice) {
-      utterThis.voice = googleUSVoice;
+      const googleUSVoice = voices.filter(
+        (voice) => voice.name === "Google UK English Female"
+      )[0];
+      if (googleUSVoice) {
+        utterThis.voice = googleUSVoice;
+      }
+      synth.speak(utterThis);
     }
-    synth.speak(utterThis);
   };
 
   searchWikiArticle = (input) => {
@@ -60,45 +81,35 @@ class MainContent extends Component {
       });
   };
 
-  componentDidMount() {}
-
   render() {
     return (
       <div className="mainContainer">
-        <div className="textWrapper">
-          <h1 className="heading">Welcome to Moshi!</h1>
-          <h2 className="subheading">
-            Learn more about tomatoes when you are preparing your salad!
-          </h2>
-          <p className="text text--md">
-            {" "}
-            Moshi uses the Web Speech API, SpeechSynthesis (Text-to-Speech), and
-            SpeechRecognition (Asynchronous Speech Recognition.) When your hands
-            are occupied with something else, you can press the Start button,
-            say something you would want to learn more about, and Mochi will
-            bring and read that article to you.
-          </p>
-          <p className="text text--md">
-            {" "}
-            It can be used without signing up. If you sign up, you can keep your
-            historical data and re-listen the wikipedia articles you want to
-            hear again with a single click.
-          </p>
-        </div>
-        <div className="demoWrapper">
-          <p className="text text--md">
-            After you are ready to start, click the start button and say
-            something that you would like to learn more about:
-          </p>
-          <button
-            ref={this.startButton}
-            onClick={this.startListening}
-            className="btn"
-          >
-            Start
-          </button>
-          <p className="text"> You are saying:</p>
-          <p ref={this.userSpeech} className="text highlight"></p>
+        <div className="innerContainer">
+          <div className="textWrapper">
+            <p className="heading">
+              Welcome to <span className="textLogo">Moshi!</span>
+            </p>
+            <p className="subheading">
+              Learn more about tomatoes when you are preparing your salad!
+            </p>
+            <p className="text--sm">
+              {" "}
+              Press the Start button, say something you would want to learn more
+              about, and <span className="textLogo">Moshi</span> will bring and
+              read that article to you.
+            </p>
+          </div>
+          <div className="demoWrapper">
+            <button
+              ref={this.startButton}
+              onClick={this.startListening}
+              className="startBtn"
+            >
+              {this.state.buttonText}
+            </button>
+            <p className="text"> You are saying:</p>
+            <p ref={this.userSpeech} className="text highlight"></p>
+          </div>
         </div>
       </div>
     );

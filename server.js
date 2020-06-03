@@ -1,8 +1,14 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-require("dotenv").config();
 const path = require("path");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const errorController = require("./controllers/error");
+require("dotenv").config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_USERNAME = process.env.MONGODB_USERNAME;
@@ -24,14 +30,31 @@ mongoose.connect(
   }
 );
 
-app.set("view engine", "ejs");
-app.set("views", "views");
+// parse incoming request bodies and stick them in req.body
+// parse application/x-www-form-urlencoded
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-app.use(express.static(path.join(__dirname, "public")));
+// parse application/json
+app.use(bodyParser.json());
 
-app.use("/", (req, res, next) => {
-  res.render("index");
-});
+// parse cookies
+app.use(cookieParser());
+
+// allow cookies
+app.use(cors({ credentials: true }));
+
+app.use(express.static(path.join(__dirname, "client/build", "index.html")));
+
+// routes
+app.use(authRoutes);
+app.use("/user", userRoutes);
+
+// 404 route
+app.use(errorController.get404);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>

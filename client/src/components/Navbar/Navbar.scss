@@ -32,11 +32,52 @@ p {
   padding: 0 0.5rem;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .link {
   text-decoration: none;
   color: $black;
   margin-right: 2rem;
   font-size: 1.1rem;
+}
+
+.infolink {
+  padding: 0.1rem 0.75rem;
+  background: $mint;
+  text-decoration: none;
+  color: $darkgray;
+  margin-right: 2rem;
+  font-size: 1.1rem;
+  border: 2px solid $darkgray;
+  border-radius: 50%;
+  font-family: "Satisfy", cursive;
+  font-weight: bold;
+}
+
+.flexContainerRow {
+  display: flex;
+  align-items: center;
+}
+
+.infoIconWrapper {
+  height: 1.5rem;
+  width: 1.5rem;
+  background: $mint;
+  color: $darkgray;
+  border: 2px solid $darkgray;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  .infoIcon {
+    font-size: 1.1rem;
+    font-family: "Satisfy", cursive;
+    font-weight: bold;
+  }
 }
 
 /* Modal Styling */
@@ -83,8 +124,8 @@ p {
 .closingButtonContainer {
   margin-left: 1rem;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
 }
 
 .modal {
@@ -149,7 +190,7 @@ p {
 .modal:focus,
 .formGroupContainer input:focus {
   outline: none;
-  box-shadow: var(--lightbs);
+  box-shadow: $shad;
 }
 
 @media (max-width: 1300px) {
@@ -159,10 +200,8 @@ p {
 }
 
 @media (max-width: 1000px) {
-  .navbar {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .infolink {
+    margin-right: 0;
   }
 
   .modal {
@@ -171,16 +210,6 @@ p {
 
   .modalContent {
     padding: 0 2.5rem;
-  }
-
-  .logo {
-    padding: 0 2rem 0.5rem 2rem;
-    margin: 0;
-    margin-bottom: 1rem;
-  }
-
-  .link {
-    margin-right: 1rem;
   }
 
   .closingButtonContainer {
