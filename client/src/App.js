@@ -4,6 +4,7 @@ import Layout from "./components/Layout/Layout";
 import MainContent from "./components/MainContent/MainContent";
 import History from "./containers/History/History";
 import PageNotFound from "./components/404/404";
+import * as actionTypes from "./store/actions/actionTypes";
 import "./App.scss";
 
 const App = () => {
