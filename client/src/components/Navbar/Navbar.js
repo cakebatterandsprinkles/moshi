@@ -1,15 +1,19 @@
 import React, { useState, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionTypes from "../../store/actions/actionTypes";
 import Modal from "react-modal";
+import axios from "axios";
 import CloseButton from "../../assets/images/closeButton.png";
 import "./Navbar.scss";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
-  const [isSignupSubmitted, setIsSignupSubmitted] = useState(false);
-  const [isLoginSubmitted, setIsLoginSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
 
   const handleLoginOpenModal = () => {
     setIsLogin(true);
@@ -22,8 +26,27 @@ const Navbar = () => {
   };
 
   const handleLoginSubmit = () => {
-    setIsLoginSubmitted(true);
-  };
+    axios
+      .post(
+        "/login",
+        {
+          email: email,
+          password: password,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        props.setUserData(email);
+        props.history.push(`/user/history`);
+        handleLoginCloseModal();
+        handleSignupCloseModal();
+      })
+      .catch((error) => {
+        if (error.response) {
+          props.setError(error.response.data);
+        }
+      });
+  }
 
   const handleSignupOpenModal = () => {
     setIsLogin(false);
@@ -35,8 +58,22 @@ const Navbar = () => {
   };
 
   const handleSignupSubmit = () => {
-    setIsSignupSubmitted(true);
-  };
+        axios
+      .post("/signup", {
+        email: email,
+        password: password,
+        repeatPassword: repeatPassword,
+      })
+      .then((response) => {
+          handleLoginSubmit();
+      })
+      .catch((error) => {
+        if (error.response) {
+          props.setError(error.response.data);
+        }
+      });
+  }
+
 
   const handleOpenInfoModal = () => {
     setIsInfo(true);
@@ -89,6 +126,7 @@ const Navbar = () => {
               <div className="closingButtonContainer">
                 <img
                   src={CloseButton}
+                  alt="Close button"
                   className="closingButton"
                   onClick={handleCloseInfoModal}
                 />
@@ -119,7 +157,7 @@ const Navbar = () => {
               <form className="form">
                 <div className="formGroupContainer">
                   <label htmlFor="user-email">E-mail address:</label>
-                  <input type="email" name="user-email" id="user-email"></input>
+                  <input type="email" name="user-email" id="user-email" onChange={event => setEmail(event.target.value)}></input>
                 </div>
                 <div className="formGroupContainer">
                   <label htmlFor="user-password">Password:</label>
@@ -127,6 +165,7 @@ const Navbar = () => {
                     type="password"
                     name="user-password"
                     id="user-password"
+                    onChange={event => setPassword(event.target.value)}
                   ></input>
                 </div>
               </form>
@@ -134,7 +173,7 @@ const Navbar = () => {
               <form className="form">
                 <div className="formGroupContainer">
                   <label htmlFor="user-email">E-mail address:</label>
-                  <input type="email" name="user-email" id="user-email"></input>
+                  <input type="email" name="user-email" id="user-email" onChange={event => setEmail(event.target.value)}></input>
                 </div>
                 <div className="formGroupContainer">
                   <label htmlFor="user-password">Password:</label>
@@ -142,6 +181,7 @@ const Navbar = () => {
                     type="password"
                     name="user-password"
                     id="user-password"
+                    onChange={event => setPassword(event.target.value)}
                   ></input>
                 </div>
                 <div className="formGroupContainer">
@@ -150,12 +190,14 @@ const Navbar = () => {
                     type="password"
                     name="repeat-password"
                     id="repeat-password"
+                    onChange={event => setRepeatPassword(event.target.value)}
                   ></input>
                 </div>
               </form>
             )}
 
             <button
+              type="submit"
               onClick={isLogin ? handleLoginSubmit : handleSignupSubmit}
               className="btn"
             >
@@ -165,6 +207,7 @@ const Navbar = () => {
           <div className="closingButtonContainer">
             <img
               src={CloseButton}
+              alt="Close button"
               className="closingButton"
               onClick={isLogin ? handleLoginCloseModal : handleSignupCloseModal}
             />
@@ -213,4 +256,19 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserData: (userMail) =>
+      dispatch({
+        type: actionTypes.setUserMail,
+        payload: { userMail: userMail },
+      }),
+    setError: (errorMessage) =>
+      dispatch({
+        type: actionTypes.setErrorMessage,
+        payload: { errorMessage: errorMessage },
+      }),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(Navbar));

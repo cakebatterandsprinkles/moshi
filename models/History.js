@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ToDoSchema = new mongoose.Schema({
+const HistorySchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",

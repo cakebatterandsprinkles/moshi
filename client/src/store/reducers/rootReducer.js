@@ -18,7 +18,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         errorMessage: action.payload.errorMessage,
       };
-    case actionTypes.setTodayList:
+    case actionTypes.setUserHistory:
       return {
         ...state,
         historyData: [
