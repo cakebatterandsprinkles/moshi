@@ -5,9 +5,8 @@ const Footer = () => {
   return (
     <div className="footerContainer">
       <p>
-        <span className="textLogo">Moshi</span> uses SpeechSynthesis and
-        SpeechRecognition functions of the Web Speech API for recognising and
-        generating speech. Check Wikipedia API for article resource.
+        <span className="textLogo">Moshi</span> is an experimental app that uses SpeechSynthesis and
+        SpeechRecognition functions of the Web Speech API. Check Wikipedia API for article resource.
       </p>
     </div>
   );

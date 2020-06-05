@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./MainContent.scss";
 
+const synth = window.speechSynthesis;
+
 class MainContent extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +20,15 @@ class MainContent extends Component {
   }
 
   startListening = () => {
-    let buttonText = this.userSpeech.current.textContent;
+    let buttonText = this.startButton.current.textContent;
     window.SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition = new window.SpeechRecognition();
     recognition.addEventListener("result", this.handleUserInput);
+
     if (buttonText === "Stop") {
       recognition.abort();
+      synth.cancel();
     } else if (buttonText === "Start") {
       recognition.start();
     }
@@ -47,11 +51,13 @@ class MainContent extends Component {
   };
 
   readText = (text) => {
-    const buttonText = this.userSpeech.current.textContent;
-    const synth = window.speechSynthesis;
-    if (buttonText === "Stop") {
+    const buttonText = this.startButton.current.textContent;
+    if (buttonText === "Start") {
       synth.cancel();
-    } else if (buttonText === "Start") {
+    } else if (buttonText === "Stop") {
+      synth.cancel();
+      console.log(text);
+      
       const utterThis = new SpeechSynthesisUtterance(text);
 
       const voices = synth.getVoices();
@@ -77,7 +83,7 @@ class MainContent extends Component {
         )
           .then((response) => response.json())
           .then((data) => Object.values(data.query.pages)[0].extract)
-          .then((articleText) => this.readText(articleText));
+          .then((articleText) => this.readText(articleText.replace(/==/g, "").substr(0, 5000)));
       });
   };
 
@@ -90,7 +96,7 @@ class MainContent extends Component {
               Welcome to <span className="textLogo">Moshi!</span>
             </p>
             <p className="subheading">
-              Learn more about tomatoes when you are preparing your salad!
+              Learn more about tomatoes when preparing your salad!
             </p>
             <p className="text--sm">
               {" "}
@@ -108,7 +114,7 @@ class MainContent extends Component {
               {this.state.buttonText}
             </button>
             <p className="text"> You are saying:</p>
-            <p ref={this.userSpeech} className="text highlight"></p>
+            <p ref={this.userSpeech} className="text highlight">-</p>
           </div>
         </div>
       </div>

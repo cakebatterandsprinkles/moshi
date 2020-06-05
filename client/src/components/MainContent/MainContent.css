@@ -10,42 +10,57 @@
   -moz-background-size: contain;
   -o-background-size: contain;
   background-size: contain; }
-  .mainContainer .innerContainer {
-    max-width: 40%; }
-  .mainContainer .heading {
-    margin-bottom: 0;
-    font-size: 2rem; }
-  .mainContainer .subheading {
-    color: #535353;
-    margin-bottom: 1.25rem;
-    font-size: 1.25rem; }
-  .mainContainer .text--sm {
-    font-size: 1rem;
-    line-height: 1.5rem; }
-  .mainContainer .demoWrapper {
-    padding: 1rem 0;
-    margin: 1rem 0;
-    display: flex;
-    flex-direction: column; }
-    .mainContainer .demoWrapper .startBtn {
-      width: 10rem;
-      background: #a1ffce;
-      color: #303030;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      border: 1px solid #535353;
-      border-radius: 10px;
-      margin-bottom: 0.5rem; }
-      .mainContainer .demoWrapper .startBtn:focus, .mainContainer .demoWrapper .startBtn:hover {
-        outline: none;
-        background: #e6e6e6;
-        transition-duration: 1s;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); }
+
+.mainContainer .innerContainer {
+  max-width: 40%; }
+
+.mainContainer .heading {
+  margin-bottom: 0;
+  font-size: 2rem; }
+
+.mainContainer .subheading {
+  color: #535353;
+  margin-bottom: 1.25rem;
+  font-size: 1.25rem; }
+
+.mainContainer .text--sm {
+  font-size: 1rem;
+  line-height: 1.5rem; }
+
+.mainContainer .demoWrapper {
+  padding: 1rem 0;
+  margin: 1rem 0;
+  display: flex;
+  align-items: baseline; }
+
+.mainContainer .demoWrapper .startBtn {
+  width: 10rem;
+  background: #a1ffce;
+  color: #303030;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 1px solid #535353;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem; }
+
+.mainContainer .demoWrapper .startBtn:focus, .mainContainer .demoWrapper .startBtn:hover {
+  outline: none;
+  background: #e6e6e6;
+  transition-duration: 1s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); }
+
+.mainContainer .demoWrapper .text {
+  margin-right: .5rem; }
+
+.mainContainer .demoWrapper .highlight {
+  padding: .25rem .5rem;
+  background: #a1ffce; }
 
 .textLogo {
   font-family: "Bellota", "sans-serif";
